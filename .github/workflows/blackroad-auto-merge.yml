@@ -14,10 +14,15 @@ permissions:
   pull-requests: write
   checks: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   auto-merge:
     name: Auto-Merge Compliant PRs
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     # Only run for bot-created PRs
     if: |
